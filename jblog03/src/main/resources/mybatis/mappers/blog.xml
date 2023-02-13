@@ -21,7 +21,7 @@
 	
 	<select id="categoryList"  parameterType="String" resultType="categoryvo">
 		<![CDATA[
-			select * from category where id=#{id}
+			select no, name, (select count(*) from post where category_no=category.no ) as count , id from category where id=#{id};
 		]]>
 	</select>
 	
@@ -39,7 +39,7 @@
 	
 	<update id="update" parameterType="blogvo">
 		<![CDATA[
-			update blog set title=#{title} ,profile=#{profile} where id=#{id}
+			update blog set title=#{title}, profile=#{profile} where id=#{id}
 		]]>
 	</update>
 	
@@ -83,6 +83,12 @@
 	<select id="categoryNoDefault" resultType="Long" parameterType="String">
 		<![CDATA[
 			select no from category where id=#{id} and name='기본 카테고리'
+		]]>
+	</select>
+	
+	<select id="getDefaultPost" resultType="postvo" parameterType="long">
+		<![CDATA[
+			select * from post where category_no = #{no } order by no desc limit 0,1
 		]]>
 	</select>
 	

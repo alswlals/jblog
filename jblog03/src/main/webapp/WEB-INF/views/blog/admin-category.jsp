@@ -25,20 +25,19 @@
 						<th>번호</th>
 						<th>카테고리명</th>
 						<th>포스트 수</th>
-						<th>설명</th>
 						<th>삭제</th>
 					</tr>
 					<c:forEach var="i" items="${vo }" varStatus="status">
 						<tr>
 							<td>${i.no }</td>
 							<td>${i.name }</td>
-							<td>${count[status.index] }</td>
-							<%-- <td>${i.desc }</td> --%>
-							<td><a href="${pageContext.servletContext.contextPath }/jblog/${id }/admin/category/delete/${i.no}"
-								class="del"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
+							<td>${i.count }</td>
+							<td><c:if test="${i.count < 1}">
+							<a href="${pageContext.servletContext.contextPath }/jblog/${id }/admin/category/delete/${i.no}"
+								class="del"><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+							</c:if></td>
 						</tr>
 					</c:forEach>
-
 				</table>
 
 				<h4 class="n-c">새로운 카테고리 추가</h4>

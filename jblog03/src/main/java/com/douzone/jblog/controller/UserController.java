@@ -1,6 +1,5 @@
 package com.douzone.jblog.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +46,6 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return "user/login";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpSession session, UserVo vo, Model model) {
-		return "redirect:/";
 	}
 
 	@RequestMapping("/logout")

@@ -73,7 +73,7 @@
 		</property>
 	</bean>
 	<!-- mvc url-resource mapping -->
-	<mvc:resources mapping="/assets/upload-images/**" location="file:/jblog-uploads/" />
+	<mvc:resources mapping="/assets/upload-images/**" location="file:/Users/awlals/Documents/douzone2023/eclipse/eclipse-workspace/jblog/jblog-uploads/" />
 
 	<!-- Interceptors -->
 	<mvc:interceptors>

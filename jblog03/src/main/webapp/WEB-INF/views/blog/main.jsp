@@ -31,7 +31,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/${blogvo.profile }.jpg">
+				<img src="${pageContext.request.contextPath}${blogvo.profile }">
 			</div>
 		</div>
 

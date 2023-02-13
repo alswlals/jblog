@@ -71,4 +71,8 @@ public class BlogRepository {
 	public long categoryNoDefault(String id) {
 		return sqlSession.selectOne("blog.categoryNoDefault", id);
 	}
+
+	public PostVo getDefaultPost(Long categoryNo) {
+		return sqlSession.selectOne("blog.getDefaultPost", categoryNo);
+	}
 }

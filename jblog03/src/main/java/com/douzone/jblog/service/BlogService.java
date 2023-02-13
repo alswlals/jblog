@@ -71,4 +71,8 @@ public class BlogService {
 		return blogRepository.categoryNoDefault(id);
 	}
 
+	public PostVo findDefaultPost(Long categoryNo) {
+		return blogRepository.getDefaultPost(categoryNo);
+	}
+
 }

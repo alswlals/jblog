@@ -46,8 +46,13 @@ public class BlogController {
 		} else {
 			categoryNo=blogService.categoryNoDefault(id);
 		}
-
-		PostVo postvo = blogService.findPost(categoryNo, postNo);
+		
+		PostVo postvo = null;
+		if(postNo == 0L) {
+			postvo = blogService.findDefaultPost(categoryNo);
+		} else {
+			postvo = blogService.findPost(categoryNo, postNo);
+		}
 
 		List<CategoryVo> categorylist = new ArrayList<>();
 		categorylist = blogService.categoryList(id);
@@ -76,20 +81,17 @@ public class BlogController {
 	}
 
 	@Auth
-	@RequestMapping(value = "admin/update", method = RequestMethod.POST)
-	public String update(String id, BlogVo blogvo, MultipartFile file, Model model) {
-		BlogVo vo = blogService.findById(id);
+	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
+	public String update(@PathVariable("id") String id, BlogVo blogvo, MultipartFile file, Model model) {
 		String url = fileuploadService.restore(file);
-		vo.setProfile(url);
-		vo.setId(id);
-		vo.setTitle(blogvo.getTitle());
+		
+		if(url != null) {
+			blogvo.setProfile(url);
+		}
 
-		blogService.update(vo);
+		blogService.update(blogvo);
 
-		model.addAttribute("id", id);
-		model.addAttribute("vo", vo);
-
-		return "redirect:/blog/" + id + "/admin/basic";
+		return "redirect:/jblog/" + id + "/admin/basic";
 	}
 
 	@Auth
@@ -113,11 +115,10 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping(value = "/admin/category", method = RequestMethod.POST)
-	public String categoryInsert(String id, CategoryVo vo, Model model) {
+	public String categoryInsert(@PathVariable("id") String id, CategoryVo vo, Model model) {
 
 		vo.setId(id);
 
-		BlogVo blogvo = blogService.findById(id);
 		blogService.categoryInsert(vo);
 
 		return "redirect:/jblog/" + id + "/admin/category";
@@ -125,7 +126,7 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping(value = "/admin/category/delete/{no}", method = { RequestMethod.GET, RequestMethod.POST })
-	public String categoryDelete(String id, @PathVariable("no") Long no, Model model) {
+	public String categoryDelete(@PathVariable("id") String id, @PathVariable("no") Long no, Model model) {
 
 		blogService.categoryDelete(no);
 		BlogVo blogvo = blogService.findById(id);
@@ -158,7 +159,7 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping(value = "/admin/write", method = RequestMethod.POST)
-	public String writeInsert(String id, PostVo vo, Model model) {
+	public String writeInsert(@PathVariable("id") String id, PostVo vo, Model model) {
 
 		blogService.write(vo);
 

@@ -20,6 +20,7 @@
 					<li><a href="${pageContext.request.contextPath}/jblog/${id}/admin/write">글작성</a></li>
 				</ul>
 				<form action="${pageContext.request.contextPath}/jblog/${id}/admin/update" method="post" enctype="multipart/form-data">
+	 		      	<input type="hidden" name="profile" value="${blogvo.profile }">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -27,7 +28,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/${blogvo.profile }"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blogvo.profile }"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
