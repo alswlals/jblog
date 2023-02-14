@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,11 +48,11 @@ public class BlogController {
 		} else if (pathNo1.isPresent()) {
 			categoryNo = pathNo1.get();
 		} else {
-			categoryNo=blogService.categoryNoDefault(id);
+			categoryNo = blogService.categoryNoDefault(id);
 		}
-		
+
 		PostVo postvo = null;
-		if(postNo == 0L) {
+		if (postNo == 0L) {
 			postvo = blogService.findDefaultPost(categoryNo);
 		} else {
 			postvo = blogService.findPost(categoryNo, postNo);
@@ -84,8 +88,8 @@ public class BlogController {
 	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
 	public String update(@PathVariable("id") String id, BlogVo blogvo, MultipartFile file, Model model) {
 		String url = fileuploadService.restore(file);
-		
-		if(url != null) {
+
+		if (url != null) {
 			blogvo.setProfile(url);
 		}
 
@@ -102,13 +106,9 @@ public class BlogController {
 		List<CategoryVo> vo = new ArrayList<>();
 		vo = blogService.categoryList(id);
 
-//		List<Integer> count = new ArrayList<>();
-//		count = blogService.count(id);
-
 		model.addAttribute("id", id);
 		model.addAttribute("vo", vo);
 		model.addAttribute("blogvo", blogvo);
-//		model.addAttribute("count", count);
 
 		return "blog/admin-category";
 	}
@@ -159,7 +159,17 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping(value = "/admin/write", method = RequestMethod.POST)
-	public String writeInsert(@PathVariable("id") String id, PostVo vo, Model model) {
+	public String writeInsert(@ModelAttribute @Valid PostVo vo, @PathVariable("id") String id, BindingResult result,
+			String title, Model model) {
+
+//		if(result.hasErrors()) {
+//			model.addAllAttributes(result.getModel());
+//			return "blog/admin-write";
+//		}
+
+		if (vo.getTitle().equals("")) {
+			return "redirect:/jblog/" + id + "/admin/write";
+		}
 
 		blogService.write(vo);
 

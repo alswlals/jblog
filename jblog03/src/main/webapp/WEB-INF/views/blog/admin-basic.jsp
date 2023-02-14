@@ -28,7 +28,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}${blogvo.profile }"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${empty blogvo.profile ? '/assets/images/spring-logo.jpg':blogvo.profile }"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

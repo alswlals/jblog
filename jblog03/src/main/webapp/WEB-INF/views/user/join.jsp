@@ -21,20 +21,17 @@
 			
 			<label class="block-label" for="name">이름</label>
 			<form:input path="name"/>
+			<p style="color:red; text-align:left; padding:0"><form:errors path="name" /></p>
 			
 			<label class="block-label" for="blog-id">아이디</label>
-			<form:input path="id" id="blog-id" name="id" type="text"/> 
+			<form:input path="id" id="blog-id" /> 
 			<input id="btn-checkemail" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
-			<p style="color: #f00; text-align: left; padding: 0;">
-			<form:errors path="id" />
-			</p>
+			<p style="color: #f00; text-align: left; padding: 0;"><form:errors path="id" /></p>
 
 			<label class="block-label" for="password"><spring:message code="user.join.label.password" /></label>
 			<form:password path="password"/>
-					<p style="color: #f00; text-align: left; padding: 0;">
-						<form:errors path="password" />
-			</p>
+			<p style="color: #f00; text-align: left; padding: 0;"><form:errors path="password" /></p>
 
 			<fieldset>
 				<legend>약관동의</legend>

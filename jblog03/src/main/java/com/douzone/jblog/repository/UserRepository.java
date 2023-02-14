@@ -16,8 +16,12 @@ public class UserRepository {
 	private SqlSession sqlSession;
 		
 	public boolean join(UserVo vo) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("vo", vo);
 		int count= sqlSession.insert("user.insert",vo);
 		sqlSession.insert("user.bloginsert",vo);
+		sqlSession.insert("user.categoryinsert", map);
+		sqlSession.insert("user.postinsert", map);
 		return count==1;
 	}
 
@@ -32,4 +36,8 @@ public class UserRepository {
 		return sqlSession.selectOne("user.getUserById",id);
 	}
 
+	// 아이디 중복 체크
+	public int checkID(String id) {
+		return sqlSession.selectOne("user.checkID", id);
+		}
 }

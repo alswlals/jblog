@@ -14,6 +14,7 @@ public class UserService {
 	public void join(UserVo vo) {
 		userRepository.join(vo);
 	}
+	
 
 	public UserVo getUser(String id, String password) {
 		
@@ -24,4 +25,7 @@ public class UserService {
 		return userRepository.getUserById(id);
 	}
 
+	public boolean checkID(String id) {
+		return userRepository.checkID(id)>0;
+	}
 }

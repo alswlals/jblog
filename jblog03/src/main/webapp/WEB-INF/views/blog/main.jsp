@@ -31,7 +31,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${blogvo.profile }">
+				<img src="${pageContext.request.contextPath}${empty blogvo.profile ? '/assets/images/spring-logo.jpg':blogvo.profile }">
 			</div>
 		</div>
 

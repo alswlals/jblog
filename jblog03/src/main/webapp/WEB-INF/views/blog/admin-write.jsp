@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%-- <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -19,13 +21,15 @@
 					<li><a href="${pageContext.request.contextPath}/jblog/${id}/admin/category">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
-				<form action="${pageContext.request.contextPath}/jblog/${id }/admin/write" method="post">
+				<form action="${pageContext.request.contextPath}/jblog/${id }/admin/write" method="post" ><!-- modelAttribute="postVo" -->
 				<input type="hidden" name="id" value="${id }" />
 			      		<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
-			      				<input type="text" size="60" name="title">
+			      				<input type="text" size="60" name="title"/>
+			      				<!-- <p style="color:red; text-align:left; padding:0"><form:errors path="title" /></p> -->
+			      				
 				      			<select name="categoryNo">
 				      				<c:forEach items="${list }" var="i" varStatus="status">
 				      					<option value="${i.no} ">${i.name }</option>

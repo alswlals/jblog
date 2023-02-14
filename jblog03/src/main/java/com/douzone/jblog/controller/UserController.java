@@ -1,5 +1,6 @@
 package com.douzone.jblog.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,20 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
+		if(userService.checkID(vo.getId())) {
+			model.addAttribute("userVo",vo);
+			return "user/join";
+		}
+		
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
 		
 		userService.join(vo);
-		
 		return "redirect:/user/joinsuccess";
 	}
+	
 	
 	@RequestMapping("/joinsuccess")
 	public String joinSuccess() {
@@ -47,10 +53,18 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(HttpSession session, UserVo vo, Model model) {
+
+		return "redirect:/";
+	}
 
 	@RequestMapping("/logout")
 	public String logout() {
 		return "redirect:/";
 	}
+
 	
+
 }

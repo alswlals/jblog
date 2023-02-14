@@ -3,7 +3,10 @@ package com.douzone.jblog.vo;
 public class PostVo {
 	private Long no;
 	private Long categoryNo;
+	
+//	@NotEmpty
 	private String title;
+	
 	private String contents;
 	private String regDate;
 	public Long getNo() {

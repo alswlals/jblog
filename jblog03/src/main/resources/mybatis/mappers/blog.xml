@@ -61,13 +61,6 @@
 		]]>
 	</insert>
 	
-<!-- 	<select id="count" parameterType="Integer" resultType="postvo">
-		<![CDATA[
-			select count(*) from post where no=#{no}
-		]]>
-	</select> -->
-	
-	
 	<select id="categoryMin" parameterType="String" resultType="categoryvo">
 		<![CDATA[
 			select min(no) from category where id=#{id}
