@@ -45,7 +45,7 @@ public class FileuploadService {
 
 			byte[] data = file.getBytes();
 
-			OutputStream os = new FileOutputStream(("fileupload.uploadLocation") + "/" + saveFilename);
+			OutputStream os = new FileOutputStream(env.getProperty("fileupload.uploadLocation") + "/" + saveFilename);
 			os.write(data);
 			os.close();
 			
