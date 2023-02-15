@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+			insert into user values (#{id}, #{name}, password(#{password}), now())
+		]]>
+	</insert>
+	<insert id="bloginsert" parameterType="uservo">
+		<![CDATA[
+			insert into blog values(#{id},"${name}의 블로그",null)
+		]]>
+	</insert>
+	<insert id="categoryinsert" parameterType="map">
+		<![CDATA[
+			insert into category values(null,"기본 카테고리", #{vo.id})
+		]]>
+		<selectKey resultType="long" keyProperty="c_no" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<insert id="postinsert" parameterType="map">
+		<![CDATA[
+			insert into post values(null,'Welcome!', '${vo.name}의 블로그에 오신 것을 환영합니다!', now(), #{c_no})
+		]]>
+	</insert>
+	<select id="getUser" parameterType="map" resultType="uservo">
+		<![CDATA[
+			select * from user where id=#{id} and password=password(#{password})
+		]]>
+	</select>
+
+	<select id="getUserById" parameterType="string"
+		resultType="uservo">
+		<![CDATA[
+			select * from user where id=#{id}
+		]]>
+	</select>
+
+	<select id="checkID" parameterType="String" resultType="Integer">
+		<![CDATA[
+			select count(*) from user where id=#{id}
+		]]>
+	</select>
+</mapper>
